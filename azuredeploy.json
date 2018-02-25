@@ -1,0 +1,140 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "siteName": {
+            "type": "string"
+        },
+        "hostingPlanName": {
+            "type": "string"
+        },
+        "siteLocation": {
+            "type": "string"
+        },
+        "sku": {
+            "type": "string",
+            "allowedValues": [
+                "Free",
+                "Shared",
+                "Basic",
+                "Standard"
+            ],
+            "defaultValue": "Free"
+        },
+        "workerSize": {
+            "type": "string",
+            "allowedValues": [
+                "0",
+                "1",
+                "2"
+            ],
+            "defaultValue": "0"
+        },
+        "Spotify client id": {
+            "type": "string",
+            "metadata": {
+                "description": "Spotify client id. @see https://beta.developer.spotify.com/documentation/general/guides/authorization-guide/"
+            },
+            "defaultValue": ""
+        },
+        "Spotify client secret": {
+            "type": "string",
+            "metadata": {
+                "description": "Spotify client secret. @see https://beta.developer.spotify.com/documentation/general/guides/authorization-guide/"
+            },
+            "defaultValue": ""
+        },
+        "Spotify redirect uri": {
+            "type": "string",
+            "metadata": {
+                "description": "Spotify redirect uri. @see https://beta.developer.spotify.com/documentation/general/guides/authorization-guide/"
+            },
+            "defaultValue": ""
+        },
+        "Final redirect uri": {
+            "type": "string",
+            "metadata": {
+                "description": "Final redirect uri."
+            },
+            "defaultValue": "http://localhost:8350"
+        },
+        "repoUrl": {
+            "type": "string"
+        },
+        "branch": {
+            "type": "string"
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "2015-04-01",
+            "name": "[parameters('hostingPlanName')]",
+            "type": "Microsoft.Web/serverFarms",
+            "location": "[parameters('siteLocation')]",
+            "properties": {
+                "sku": "[parameters('sku')]",
+                "workerSize": "[parameters('workerSize')]",
+                "numberOfWorkers": 1
+            }
+        },
+        {
+            "apiVersion": "2015-08-01",
+            "name": "[parameters('siteName')]",
+            "type": "Microsoft.Web/Sites",
+            "location": "[parameters('siteLocation')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/serverfarms', parameters('hostingPlanName'))]"
+            ],
+            "tags": {
+                "[concat('hidden-related:', resourceGroup().id, '/providers/Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]": "empty"
+            },
+            "properties": {
+                "serverFarmId": "[parameters('hostingPlanName')]",
+                "siteConfig": {
+                    "webSocketsEnabled": true,
+                    "appSettings": [
+                        {
+                            "name": "websiteUrl",
+                            "value": ""
+                        },
+                        {
+                            "name": "SPOTIFY_CLIENT_ID",
+                            "value": "[parameters('Spotify client id')]"
+                        },
+                        {
+                            "name": "SPOTIFY_CLIENT_SECRET",
+                            "value": "[parameters('Spotify client secret')]"
+                        },
+                        {
+                            "name": "SPOTIFY_REDIRECT_URI",
+                            "value": "[parameters('Spotify redirect uri')]"
+                        },
+                        {
+                            "name": "FINAL_REDIRECT_URI",
+                            "value": "[parameters('Final redirect uri')]"
+                        },
+                        {
+                            "name": "WEBSITE_NODE_DEFAULT_VERSION",
+                            "value": "6.9.1"
+                        }
+                    ]
+                }
+            },
+            "resources": [
+                {
+                    "apiVersion": "2015-08-01",
+                    "name": "web",
+                    "type": "sourcecontrols",
+                    "dependsOn": [
+                        "[resourceId('Microsoft.Web/Sites', parameters('siteName'))]"
+                    ],
+                    "properties": {
+                        "RepoUrl": "[parameters('repoUrl')]",
+                        "branch": "[parameters('branch')]",
+                        "IsManualIntegration": true
+                    }
+                }
+            ]
+        }
+    ]
+}

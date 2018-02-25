@@ -1,0 +1,247 @@
+body {
+    margin: 0;
+    background: #f3f3f3;
+}
+
+/* Disable ugly boxes around images in IE10 */
+a img {
+    border: 0px;
+}
+
+::-moz-selection {
+    background-color: #6ab344;
+    color: #fff;
+}
+
+::selection {
+    background-color: #6ab344;
+    color: #fff;
+}
+
+.vscode-spotify-mobile-title {
+    display: none !important;
+}
+
+@keyframes gramophone {
+  0%{
+      transform: rotate(20deg);
+  }
+  
+  50%{
+      transform: rotate(25deg);
+  }
+
+  100%{
+      transform: rotate(20deg);
+  }
+}
+
+.vscode-spotify-title:hover {
+    background-color: #757575;
+}
+
+.vscode-spotify-title:hover .vscode-spotify-logo-gramophone {
+    display: block;
+    animation: gramophone 0.8s linear infinite;
+}
+
+.vscode-spotify-logo-gramophone {
+    display: none;
+    position: absolute;
+    height: 2px;
+    width: 35%;
+    background-color: black;
+    top: 80%;
+    left: 55%;
+    transform-origin: bottom right;
+    transform: rotate(20deg);
+    z-index: 1;
+}
+
+
+.vscode-spotify-logo-image {
+    height: 48px;
+    width: 48px;
+}
+
+@keyframes rotating {
+  from{
+      transform: rotate(0deg);
+  }
+  to{
+      transform: rotate(360deg);
+  }
+}
+
+.vscode-spotify-logo-image {
+    border-radius: 50%;
+}
+.vscode-spotify-logo-image:hover {
+    animation: rotating 0.8s linear infinite;
+}
+
+.vscode-spotify-header {
+    overflow: visible;
+    background-color: white;
+}
+
+.vscode-spotify-header .mdl-navigation__link {
+    color: #757575;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.vscode-spotify-navigation-container {
+    /* Simple hack to make the overflow happen to the left instead... */
+    direction: rtl;
+    -webkit-order: 1;
+    -ms-flex-order: 1;
+    order: 1;
+    width: 10px;
+    transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+    width 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.vscode-spotify-navigation {
+    /* ... and now make sure the content is actually LTR */
+    direction: ltr;
+    -webkit-justify-content: flex-end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+    width: 800px;
+}
+
+.vscode-spotify-search-box.is-focused + .vscode-spotify-navigation-container {
+    opacity: 0;
+    width: 100px;
+}
+
+.vscode-spotify-navigation .mdl-navigation__link {
+    display: inline-block;
+    height: 60px;
+    line-height: 68px;
+    background-color: transparent !important;
+    border-bottom: 4px solid transparent;
+}
+
+.vscode-spotify-navigation .mdl-navigation__link:hover {
+    border-bottom: 4px solid #8bc34a;
+}
+
+.vscode-spotify-drawer .mdl-navigation__link.mdl-navigation__link {
+    font-size: 14px;
+    color: #757575;
+}
+
+.vscode-spotify-drawer span.mdl-navigation__link.mdl-navigation__link {
+    color: #8bc34a;
+}
+
+.vscode-spotify-drawer .vscode-spotify-logo-image {
+    position: absolute;
+    bottom: 16px;
+}
+
+.vscode-spotify-content{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.vscode-spotify-main-section {
+    position: relative;
+    height: 800px;
+    width: auto;
+    background: #f3f3f3 url('images/background.png') no-repeat center 30%;
+    background-size: contain;
+}
+
+.logo-font {
+    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    line-height: 1;
+    color: #767777;
+    font-weight: 500;
+}
+
+.vscode-spotify-slogan {
+    font-size: 60px;
+    padding-top: 160px;
+}
+
+.vscode-spotify-sub-slogan {
+    font-size: 21px;
+    padding-top: 24px;
+}
+
+.vscode-spotify-create-character a {
+    text-decoration: none;
+    color: #767777;
+    font-weight: 300;
+}
+
+.vscode-spotify-wear-band-text p {
+    padding-top: 8px;
+}
+
+.vscode-spotify-customized-section-text p {
+    padding-top: 16px;
+}
+
+.vscode-spotify-card-container .mdl-card__media img {
+    width: 100%;
+}
+
+.vscode-spotify-card-container .mdl-card__actions a {
+    border-top: none;
+    font-size: 16px;
+}
+
+.vscode-spotify-footer a:hover {
+    color: #8bc34a;
+}
+
+.vscode-spotify-footer .mdl-mega-footer--bottom-section a {
+    margin-right: 2em;
+}
+
+/**** Mobile layout ****/
+@media (max-width: 900px) {
+    .vscode-spotify-title {
+        display: none !important;
+    }
+
+    .vscode-spotify-mobile-title {
+        display: block !important;
+        position: absolute;
+        transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* WebViews in iOS 9 break the "~" operator, and WebViews in OS X 10.10 break
+       consecutive "+" operators in some cases. Therefore, we need to use both
+       here to cover all the bases. */
+    .vscode-spotify.vscode-spotify-search-box.is-focused ~ .vscode-spotify-mobile-title,
+    .vscode-spotify-search-box.is-focused + .vscode-spotify-navigation-container + .vscode-spotify-mobile-title {
+        opacity: 0;
+    }
+
+    .vscode-spotify-main-section {
+        height: 350px;
+    }
+
+    .vscode-spotify-slogan {
+        font-size: 26px;
+        margin: 0 16px;
+        padding-top: 24px;
+    }
+
+    .vscode-spotify-sub-slogan {
+        font-size: 16px;
+        margin: 0 16px;
+        padding-top: 8px;
+    }
+
+    .vscode-spotify-create-character img {
+        height: 12px;
+    }
+
+}

@@ -1,0 +1,19 @@
+{
+  "name": "vscode-spotify-auth",
+  "version": "0.0.1",
+  "description": "Spotify api auth server for vscode-spotify",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./index.js"
+  },
+  "repository": "https://github.com/ShyykoSerhiy/vscode-spotify-auth.git",
+  "author": "shyyko.serhiy <shyyko.serhiy@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "cookie-parser": "^1.4.3",
+    "dotenv": "^5.0.0",
+    "express": "^4.16.2",
+    "querystring": "^0.2.0",
+    "request": "^2.83.0"
+  }
+}
