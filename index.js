@@ -15,7 +15,7 @@ const final_redirect_uri = process.env.FINAL_REDIRECT_URI;
  * @return {string} The generated string
  */
 const generateRandomString = function (length) {
-    const text = '';
+    let text = '';
     const possible = 'tommarvoloriddle';
 
     for (let i = 0; i < length; i++) {
