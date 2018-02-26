@@ -73,6 +73,10 @@ a img {
   }
 }
 
+.vscode-spotify-navigation-login {
+    display: none;
+}
+
 .vscode-spotify-logo-image {
     border-radius: 50%;
 }
