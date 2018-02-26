@@ -58,7 +58,7 @@ app.get('/callback', function (req, res) {
     const storedState = req.cookies ? req.cookies[stateKey] : null;
 
     if (state === null || state !== storedState) {
-        res.redirect(final_redirect_uri +
+        res.redirect(final_redirect_uri + '?' +
             querystring.stringify({
                 error: 'state_mismatch'
             }));
@@ -84,13 +84,13 @@ app.get('/callback', function (req, res) {
                     refresh_token = body.refresh_token;
 
                 // we can also pass the token to the browser to make requests from there
-                res.redirect(final_redirect_uri +
+                res.redirect(final_redirect_uri + '?' +
                     querystring.stringify({
                         access_token: access_token,
                         refresh_token: refresh_token
                     }));
             } else {
-                res.redirect(final_redirect_uri +
+                res.redirect(final_redirect_uri + '?' +
                     querystring.stringify({
                         error: 'invalid_token'
                     }));
