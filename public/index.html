@@ -63,7 +63,7 @@
         document.querySelector('.vscode-spotify-navigation-login').style.display = 'block';
       }
       if (params['message']) {
-        document.querySelector('.vscode-spotify-slogan').innerHTML = decodeURIComponent(params['message']);
+        document.querySelector('.vscode-spotify-slogan').textContent = decodeURIComponent(params['message']);
         document.querySelector('.vscode-spotify-sub-slogan').style.display = 'none';
       }
     </script>
